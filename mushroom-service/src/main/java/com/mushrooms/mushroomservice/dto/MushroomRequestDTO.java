@@ -1,0 +1,46 @@
+package com.mushrooms.mushroomservice.dto;
+
+import com.mushrooms.mushroomservice.enums.Consumable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class MushroomRequestDTO {
+
+    private String photoURL;
+    private String mushroomName;
+    private String otherNames;
+    private Boolean edible;
+
+    private String consumableName;
+
+    public Consumable getConsumable() {
+        return Consumable.valueOf(consumableName);
+    }
+
+    public void setConsumable(Consumable consumable) {
+        this.consumableName = consumable.toString();
+    }
+    
+
+//    private String consumable;
+    private String whenFruiting;
+    private String whereFruiting;
+    private String hat;
+    private String stem;
+    private String ring;
+    private String gills;
+    private String tubes;
+    private String pulp;
+    private String smell;
+    private String taste;
+    private String differentiation;
+    private String similar;
+    private String remarks;
+    private String foodValue;
+}
