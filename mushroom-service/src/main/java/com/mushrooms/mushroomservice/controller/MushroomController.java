@@ -36,6 +36,12 @@ public class MushroomController {
         return mushroomService.findByMushroomName(mushroomName);
     }
 
+    @GetMapping("/containing/{mushroomName}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Mushroom> findByMushroomNameContaining (@PathVariable(name="mushroomName") String mushroomName){
+        return mushroomService.findByMushroomNameContaining(mushroomName);
+    }
+
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public MushroomReceiptDTO createMushroom(@RequestBody @Valid MushroomRequestDTO mushroomRequestDTO){

@@ -136,20 +136,20 @@ public class EventService implements IEventService {
     public List<Event>  fallbackEventList(Exception e) {
         logger.info("call event fallback method");
         List<Event> fallbackEventList = new ArrayList<>();
-        Event fallbackEvent = new Event("fallback", EventType.OTHER, LocalDateTime.now(),0,"","","");
+        Event fallbackEvent = new Event("fallback", EventType.OTHER, LocalDateTime.now().toString(),0,"","","");
         fallbackEventList.add(fallbackEvent);
         return fallbackEventList;
     }
 
     public Event fallbackEvent(Exception e) {
         logger.info("call event fallback method");
-        Event fallbackEvent = new Event("fallback", EventType.OTHER, LocalDateTime.now(),0,"","","");
+        Event fallbackEvent = new Event("fallback", EventType.OTHER, LocalDateTime.now().toString(),0,"","","");
         return fallbackEvent;
     }
 
     public EventReceiptDTO  fallbackEventDTO(Exception e) {
         logger.info("call event fallback method");
-        EventReceiptDTO  fallbackEvent = new EventReceiptDTO (1000l, "fallback", EventType.OTHER, LocalDateTime.now(),0,"","","");
+        EventReceiptDTO  fallbackEvent = new EventReceiptDTO (1000l, "fallback", EventType.OTHER, LocalDateTime.now().toString(),0,"","","");
         return fallbackEvent;
     }
 

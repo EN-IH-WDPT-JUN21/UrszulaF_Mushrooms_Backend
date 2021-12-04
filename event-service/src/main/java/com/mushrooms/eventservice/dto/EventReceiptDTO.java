@@ -20,7 +20,7 @@ public class EventReceiptDTO {
 
     @Enumerated(EnumType.STRING)
     private EventType eventType;
-    private LocalDateTime whenEvent;
+    private String whenEvent;
     private Integer duration;
     private String whereEvent;
     private String contactPerson;

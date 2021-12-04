@@ -18,6 +18,13 @@ description) VALUES
 '2021-12-24 10:11',
 120,
 "forest in Stara Miłosna",
-"Mayla",
-"I invite you for December walk in the forest. Let me know 10 days before")
+"Maryla",
+"I invite you for December walk in the forest. Let me know 10 days before"),
+("other1",
+"OTHER",
+'2020-12-31 23:00',
+90,
+"beach by river Vistula",
+"Ewa",
+"I invite you for beach party on New Years Eve")
 ;

@@ -23,13 +23,13 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventType eventType;
-    private LocalDateTime whenEvent;
+    private String whenEvent;
     private Integer duration;
     private String whereEvent;
     private String contactPerson;
     private String description;
 
-    public Event(String eventName, EventType eventType, LocalDateTime whenEvent, Integer duration, String whereEvent, String contactPerson, String description) {
+    public Event(String eventName, EventType eventType, String whenEvent, Integer duration, String whereEvent, String contactPerson, String description) {
         this.eventName = eventName;
         this.eventType = eventType;
         this.whenEvent = whenEvent;
