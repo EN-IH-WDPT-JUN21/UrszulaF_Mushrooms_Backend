@@ -9,6 +9,7 @@ import java.util.List;
 public interface IMushroomService {
     List<Mushroom> getAllMushrooms();
     MushroomReceiptDTO findByMushroomName (String mushroomName);
+    MushroomReceiptDTO findById(Long id);
     List<Mushroom> findByMushroomNameContaining(String mushroomName);
 
     void deleteMushroom(String mushroomName);

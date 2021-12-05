@@ -43,6 +43,17 @@ public class MushroomService implements IMushroomService {
         return convertMushroomToDTO(mushroom);
     }
 
+    public MushroomReceiptDTO findById(Long id) {
+        Optional<Mushroom> optionalMushroom = mushroomRepository.findById(id);
+
+        if(optionalMushroom.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mushroom with id " + id + " not found!");
+        }
+
+        Mushroom mushroom= optionalMushroom.isPresent()? optionalMushroom.get() : null;
+        return convertMushroomToDTO(mushroom);
+    }
+
     public List<Mushroom> findByMushroomNameContaining(String mushroomName) {
         List<Mushroom> optionalMushroom = mushroomRepository.findByMushroomNameContaining(mushroomName);
 

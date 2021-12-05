@@ -72,19 +72,19 @@ public class UserService implements IUserService {
     public UserReceiptDTO updateUser(String username, UserRequestDTO userRequestDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Username " + username + " not found!"));
-        if (userRequestDTO.getPhotoURL() != null ) {
+        if (userRequestDTO.getPhotoURL() != null && userRequestDTO.getPhotoURL() != "") {
             user.setPhotoURL(userRequestDTO.getPhotoURL());
         }
-        if (userRequestDTO.getEmail() != null ) {
+        if (userRequestDTO.getEmail() != null && userRequestDTO.getEmail() != "") {
             user.setEmail(userRequestDTO.getEmail());
         }
-        if (userRequestDTO.getPassword() != null) {
+        if (userRequestDTO.getPassword() != null && userRequestDTO.getPassword() != "") {
             user.setPassword(userRequestDTO.getPassword());
         }
-        if (userRequestDTO.getBio() != null ) {
+        if (userRequestDTO.getBio() != null && userRequestDTO.getBio() != "") {
             user.setBio(userRequestDTO.getBio());
         }
-        if (userRequestDTO.getRole() != null) {
+        if (userRequestDTO.getRole() != null && userRequestDTO.getRole() != "") {
             user.setRole(userRequestDTO.getRole());
         }
         userRepository.save(user);
