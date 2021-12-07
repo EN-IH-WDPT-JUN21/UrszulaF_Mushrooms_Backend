@@ -1,8 +1,8 @@
-INSERT INTO user (username, password, email, bio, photoURL, role) VALUES
-("Ula", "admin", "u@u.pl", "I'm admin", "", "ADMIN"),
-("Maryla", "admin", "m@m.com", "I'm admin", "", "ADMIN"),
-("Adam", "admin", "a@a.com", "I'm admin", "", "ADMIN"),
-("Basia", "user", "b@b.com", "I'm user", "", "USER"),
-("Ewa", "user", "e@e.pl", "I'm user", "", "USER"),
-("Zosia", "user", "z@z.com", "I'm user", "", "USER")
+INSERT INTO user (id, username, bio, photoURL) VALUES
+(1, "Ula", "I'm admin", ""),
+(2, "Maryla", "I'm admin", ""),
+(3, "Adam", "I'm admin", ""),
+(4, "Basia", "I'm user", ""),
+(5, "Ewa", "I'm user", ""),
+(6, "Zosia", "I'm user", "")
 ;

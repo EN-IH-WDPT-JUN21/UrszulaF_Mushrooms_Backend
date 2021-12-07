@@ -1,11 +1,12 @@
-DROP TABLE if exists user;
+DROP TABLE if exists user_auth;
 
 
-CREATE TABLE `user` (
-    `id` BIGINT NOT NULL PRIMARY KEY,
-    `photoURL` VARCHAR(255),
+CREATE TABLE `user_auth` (
+    `id` BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `username` VARCHAR(255),
-    `bio` VARCHAR(255)
+    `email` VARCHAR(255),
+    `password` VARCHAR(255),
+    `role` VARCHAR(255)
 );
 
 /*

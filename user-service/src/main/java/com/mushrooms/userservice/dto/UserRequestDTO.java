@@ -10,16 +10,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequestDTO {
-
+    private Long id;
     private String photoURL;
     private String username;
-    private String email;
-    private String password;
     private String bio;
-    private String role;
 
-    public UserRequestDTO(String username, String password) {
+    public UserRequestDTO(String username) {
         this.username = username;
-        this.password = password;
     }
 }

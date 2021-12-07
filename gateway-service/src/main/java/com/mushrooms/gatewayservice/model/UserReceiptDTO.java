@@ -12,11 +12,19 @@ import lombok.Setter;
 public class UserReceiptDTO {
 
     private Long id;
-    private String photoURL;
     private String username;
     private String email;
     private String password;
-    private String bio;
     private String role;
 
+    private String photoURL;
+    private String bio;
+
+    public UserReceiptDTO(Long id, String username, String email, String password, String role) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

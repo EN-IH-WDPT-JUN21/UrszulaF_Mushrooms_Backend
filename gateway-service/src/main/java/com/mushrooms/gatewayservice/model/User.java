@@ -17,20 +17,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String photoURL;
     private String username;
     private String email;
     private String password;
-    private String bio;
     private String role;
 
 
-    public User(String photoURL, String username, String email, String password, String bio, String role) {
-        this.photoURL = photoURL;
+    public User(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.bio = bio;
         this.role = role;
     }
 
@@ -38,11 +34,9 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", photoURL='" + photoURL + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", bio='" + bio + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

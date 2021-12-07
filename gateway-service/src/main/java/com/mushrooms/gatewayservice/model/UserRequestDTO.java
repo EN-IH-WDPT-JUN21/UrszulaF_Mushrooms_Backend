@@ -12,13 +12,18 @@ import lombok.Setter;
 public class UserRequestDTO {
 
 
-    private String photoURL;
     private String username;
     private String email;
     private String password;
-    private String bio;
     private String role;
 
+    private String photoURL;
+    private String bio;
 
-
+    public UserRequestDTO(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

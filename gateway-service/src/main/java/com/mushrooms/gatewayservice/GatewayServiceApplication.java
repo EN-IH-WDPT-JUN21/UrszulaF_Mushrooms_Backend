@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -18,17 +19,18 @@ import java.util.Random;
 
 @EnableEurekaClient
 @SpringBootApplication
-public class GatewayServiceApplication implements CommandLineRunner {
+@EnableFeignClients
+public class GatewayServiceApplication /*implements CommandLineRunner*/ {
 
-	@Autowired
-	private UserRepository userRepository;
+//	@Autowired
+//	private UserRepository userRepository;
+//
+//	@Autowired
+//	private UserService userService;
+//
+//	Random random = new Random();
 
-	@Autowired
-	private UserService userService;
-
-	Random random = new Random();
-
-	public void createUsers() {
+//	public void createUsers() {
 
 //		User user = new User();
 //		Long id = new Long(random.nextInt(100));
@@ -43,29 +45,29 @@ public class GatewayServiceApplication implements CommandLineRunner {
 //		System.out.println(save);
 
 
-		List<User> myUsers = new ArrayList<>();
+//		List<User> myUsers = new ArrayList<>();
+//
+//		List<UserReceiptDTO> entities = userService.findAllUsers();
+//		for(UserReceiptDTO entity: entities){
+//			User userT = new User();
+//			userT.setId(entity.getId());
+//			userT.setEmail(entity.getEmail());
+//			userT.setPassword(entity.getPassword());
+////		user.setEnabled(true);
+//			userT.setRole(entity.getRole());
+//			userT.setUsername(entity.getUsername());
+//			User saveT = this.userRepository.save(userT);
+//		}
+//		System.out.println(myUsers);
 
-		List<UserReceiptDTO> entities = userService.findAllUsers();
-		for(UserReceiptDTO entity: entities){
-			User userT = new User();
-			userT.setId(entity.getId());
-			userT.setEmail(entity.getEmail());
-			userT.setPassword(entity.getPassword());
-//		user.setEnabled(true);
-			userT.setRole(entity.getRole());
-			userT.setUsername(entity.getUsername());
-			User saveT = this.userRepository.save(userT);
-		}
-		System.out.println(myUsers);
-
-	}
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayServiceApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		createUsers();
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		createUsers();
+//	}
 }

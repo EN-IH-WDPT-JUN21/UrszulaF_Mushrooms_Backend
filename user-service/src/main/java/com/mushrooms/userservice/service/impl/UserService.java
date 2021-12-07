@@ -44,8 +44,18 @@ public class UserService implements IUserService {
         return convertUserToDTO(user);
     }
 
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
+
+    }
+
 //    @Retry(name = "user-api", fallbackMethod = "fallbackUserDTO")
     public UserReceiptDTO createUser(UserRequestDTO userRequestDTO) {
+        Optional<User> optionalId = userRepository.findById(userRequestDTO.getId());
+
+        if(optionalId.isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id " + userRequestDTO.getId() + " already exist!");
+        }
         Optional<User> optionalUser = userRepository.findByUsername(userRequestDTO.getUsername());
 
         if(optionalUser.isPresent()){
@@ -75,34 +85,23 @@ public class UserService implements IUserService {
         if (userRequestDTO.getPhotoURL() != null && userRequestDTO.getPhotoURL() != "") {
             user.setPhotoURL(userRequestDTO.getPhotoURL());
         }
-        if (userRequestDTO.getEmail() != null && userRequestDTO.getEmail() != "") {
-            user.setEmail(userRequestDTO.getEmail());
-        }
-        if (userRequestDTO.getPassword() != null && userRequestDTO.getPassword() != "") {
-            user.setPassword(userRequestDTO.getPassword());
-        }
         if (userRequestDTO.getBio() != null && userRequestDTO.getBio() != "") {
             user.setBio(userRequestDTO.getBio());
-        }
-        if (userRequestDTO.getRole() != null && userRequestDTO.getRole() != "") {
-            user.setRole(userRequestDTO.getRole());
         }
         userRepository.save(user);
         return convertUserToDTO(user);
     }
 
     private UserReceiptDTO convertUserToDTO(User user) {
-        return new UserReceiptDTO(user.getId(), user.getPhotoURL(), user.getUsername(), user.getEmail(), user.getPassword(), user.getBio(), user.getRole());
+        return new UserReceiptDTO(user.getId(), user.getPhotoURL(), user.getUsername(), user.getBio());
     }
 
     private User convertDTOToUser(UserRequestDTO userRequestDTO) {
         return new User(
+                userRequestDTO.getId(),
                 userRequestDTO.getPhotoURL(),
                 userRequestDTO.getUsername(), 
-                userRequestDTO.getEmail(), 
-                userRequestDTO.getPassword(), 
-                userRequestDTO.getBio(), 
-                userRequestDTO.getRole()
+                userRequestDTO.getBio()
         );
     }
 
@@ -111,20 +110,20 @@ public class UserService implements IUserService {
     public List<User>  fallbackUserList(Exception e) {
         logger.info("call user fallback method");
         List<User> fallbackUserList = new ArrayList<>();
-        User fallbackUser = new User("", "fallback", "","","","");
+        User fallbackUser = new User(1000l, "", "fallback", "");
         fallbackUserList.add(fallbackUser);
         return fallbackUserList;
     }
 
     public User fallbackUser(Exception e) {
         logger.info("call user fallback method");
-        User fallbackUser = new User("", "fallback", "","","","");
+        User fallbackUser = new User(1000l, "", "fallback", "");
         return fallbackUser;
     }
 
     public UserReceiptDTO  fallbackUserDTO(Exception e) {
         logger.info("call user fallback method");
-        UserReceiptDTO  fallbackUser = new UserReceiptDTO (0l, "", "fallback", "","","","");
+        UserReceiptDTO  fallbackUser = new UserReceiptDTO (1000l, "", "fallback", "");
         return fallbackUser;
     }
 

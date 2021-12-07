@@ -1,5 +1,6 @@
 package com.mushrooms.gatewayservice.controller;
 
+import com.mushrooms.gatewayservice.model.User;
 import com.mushrooms.gatewayservice.model.UserReceiptDTO;
 import com.mushrooms.gatewayservice.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class Home {
 
     @GetMapping("/getusers")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserReceiptDTO> findAllUsers(){
+    public List<User> findAllUsers(){
         return userService.findAllUsers();
     }
 

@@ -14,23 +14,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String photoURL;
     private String username;
-    private String email;
-    private String password;
     private String bio;
-    private String role;
 
 
-    public User(String photoURL, String username, String email, String password, String bio, String role) {
+    public User(String photoURL, String username, String bio) {
         this.photoURL = photoURL;
         this.username = username;
-        this.email = email;
-        this.password = password;
         this.bio = bio;
-        this.role = role;
     }
 
     @Override
@@ -39,10 +32,7 @@ public class User {
                 "id=" + id +
                 ", photoURL='" + photoURL + '\'' +
                 ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", bio='" + bio + '\'' +
-                ", role='" + role + '\'' +
                 '}';
     }
 }
