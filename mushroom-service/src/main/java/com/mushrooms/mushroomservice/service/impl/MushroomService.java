@@ -92,58 +92,58 @@ public class MushroomService implements IMushroomService {
     public MushroomReceiptDTO updateMushroom(String mushroomName, MushroomRequestDTO mushroomRequestDTO) {
         Mushroom mushroom = mushroomRepository.findByMushroomName(mushroomName).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "MushroomName " + mushroomName + " not found!"));
-        if (mushroomRequestDTO.getOtherNames() != null ) {
+        if (mushroomRequestDTO.getOtherNames() != null && mushroomRequestDTO.getOtherNames() != "") {
             mushroom.setOtherNames(mushroomRequestDTO.getOtherNames());
         }
-        if (mushroomRequestDTO.getPhotoURL() != null ) {
+        if (mushroomRequestDTO.getPhotoURL() != null && mushroomRequestDTO.getPhotoURL() != "") {
             mushroom.setPhotoURL(mushroomRequestDTO.getPhotoURL());
         }
         if (mushroomRequestDTO.getEdible() != null) {
             mushroom.setEdible(mushroomRequestDTO.getEdible());
         }
-        if (mushroomRequestDTO.getConsumableName() != null) {
+        if (mushroomRequestDTO.getConsumableName() != null && mushroomRequestDTO.getConsumableName() != "") {
             mushroom.setConsumable(mushroomRequestDTO.getConsumable());
         }
-        if (mushroomRequestDTO.getWhenFruiting() != null) {
+        if (mushroomRequestDTO.getWhenFruiting() != null && mushroomRequestDTO.getWhenFruiting() != "") {
             mushroom.setWhenFruiting(mushroomRequestDTO.getWhenFruiting());
         }
-        if (mushroomRequestDTO.getWhereFruiting() != null) {
+        if (mushroomRequestDTO.getWhereFruiting() != null && mushroomRequestDTO.getWhereFruiting() != "") {
             mushroom.setWhereFruiting(mushroomRequestDTO.getWhereFruiting());
         }
-        if (mushroomRequestDTO.getHat() != null) {
+        if (mushroomRequestDTO.getHat() != null && mushroomRequestDTO.getHat() != "") {
             mushroom.setHat(mushroomRequestDTO.getHat());
         }
-        if (mushroomRequestDTO.getStem() != null) {
+        if (mushroomRequestDTO.getStem() != null && mushroomRequestDTO.getStem() != "") {
             mushroom.setStem(mushroomRequestDTO.getStem());
         }
-        if (mushroomRequestDTO.getRing() != null) {
+        if (mushroomRequestDTO.getRing() != null && mushroomRequestDTO.getRing() != "") {
             mushroom.setRing(mushroomRequestDTO.getRing());
         }
-        if (mushroomRequestDTO.getGills() != null) {
+        if (mushroomRequestDTO.getGills() != null && mushroomRequestDTO.getGills() != "") {
             mushroom.setGills(mushroomRequestDTO.getGills());
         }
-        if (mushroomRequestDTO.getTubes() != null) {
+        if (mushroomRequestDTO.getTubes() != null && mushroomRequestDTO.getTubes() != "") {
             mushroom.setTubes(mushroomRequestDTO.getTubes());
         }
-        if (mushroomRequestDTO.getPulp() != null) {
+        if (mushroomRequestDTO.getPulp() != null && mushroomRequestDTO.getPulp() != "") {
             mushroom.setPulp(mushroomRequestDTO.getPulp());
         }
-        if (mushroomRequestDTO.getSmell() != null) {
+        if (mushroomRequestDTO.getSmell() != null && mushroomRequestDTO.getSmell() != "") {
             mushroom.setSmell(mushroomRequestDTO.getSmell());
         }
-        if (mushroomRequestDTO.getTaste() != null) {
+        if (mushroomRequestDTO.getTaste() != null && mushroomRequestDTO.getTaste() != "") {
             mushroom.setTaste(mushroomRequestDTO.getTaste());
         }
-        if (mushroomRequestDTO.getDifferentiation() != null) {
+        if (mushroomRequestDTO.getDifferentiation() != null && mushroomRequestDTO.getDifferentiation() != "") {
             mushroom.setDifferentiation(mushroomRequestDTO.getDifferentiation());
         }
-        if (mushroomRequestDTO.getSimilar() != null) {
+        if (mushroomRequestDTO.getSimilar() != null && mushroomRequestDTO.getSimilar() != "") {
             mushroom.setSimilar(mushroomRequestDTO.getSimilar());
         }
-        if (mushroomRequestDTO.getRemarks() != null) {
+        if (mushroomRequestDTO.getRemarks() != null && mushroomRequestDTO.getRemarks() != "") {
             mushroom.setRemarks(mushroomRequestDTO.getRemarks());
         }
-        if (mushroomRequestDTO.getFoodValue() != null) {
+        if (mushroomRequestDTO.getFoodValue() != null && mushroomRequestDTO.getFoodValue() != "") {
             mushroom.setFoodValue(mushroomRequestDTO.getFoodValue());
         }
         mushroomRepository.save(mushroom);

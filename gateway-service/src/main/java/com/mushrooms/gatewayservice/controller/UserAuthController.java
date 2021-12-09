@@ -47,6 +47,12 @@ public class UserAuthController {
         return userService.createUserWithAdds(userRequestDTO);
     }
 
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserReceiptDTO createUserNoAdds(@RequestBody @Valid UserRequestDTO userRequestDTO){
+        return userService.createUser(userRequestDTO);
+    }
+
     @PutMapping ("/update/{username}")
     @ResponseStatus(HttpStatus.OK)
     public UserReceiptDTO updateUser(@PathVariable String username, @RequestBody UserRequestDTO userRequestDTO) {

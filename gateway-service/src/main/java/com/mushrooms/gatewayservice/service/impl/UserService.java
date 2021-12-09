@@ -166,7 +166,7 @@ public class UserService implements IUserService {
             userProxy.createUser(userServiceRequestDTO);
             return userReceiptDTO;
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User type value not valid.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User value not valid.");
         }
     }
 
