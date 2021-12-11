@@ -84,23 +84,23 @@ public class EventService implements IEventService {
     public EventReceiptDTO updateEvent(String eventName, EventRequestDTO eventRequestDTO) {
         Event event = eventRepository.findByEventName(eventName).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "EventName " + eventName + " not found!"));
-        if (eventRequestDTO.getEventTypeName() != null ) {
+        if (eventRequestDTO.getEventTypeName() != null && eventRequestDTO.getEventTypeName() != "") {
             event.setEventType(eventRequestDTO.getEventType());
         }
-        if (eventRequestDTO.getWhenEvent() != null ) {
+        if (eventRequestDTO.getWhenEvent() != null && eventRequestDTO.getWhenEvent() != "") {
             event.setWhenEvent(eventRequestDTO.getWhenEvent());
         }
-        if (eventRequestDTO.getDuration() != null) {
+        if (eventRequestDTO.getDuration() != null && eventRequestDTO.getDuration() != 0) {
             event.setDuration(eventRequestDTO.getDuration());
         }
 
-        if (eventRequestDTO.getWhereEvent() != null) {
+        if (eventRequestDTO.getWhereEvent() != null && eventRequestDTO.getWhereEvent() != "") {
             event.setWhereEvent(eventRequestDTO.getWhereEvent());
         }
-        if (eventRequestDTO.getContactPerson() != null) {
+        if (eventRequestDTO.getContactPerson() != null && eventRequestDTO.getContactPerson() != "") {
             event.setContactPerson(eventRequestDTO.getContactPerson());
         }
-        if (eventRequestDTO.getDescription() != null) {
+        if (eventRequestDTO.getDescription() != null && eventRequestDTO.getDescription() != "") {
             event.setDescription(eventRequestDTO.getDescription());
         }
         eventRepository.save(event);
