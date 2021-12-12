@@ -1,5 +1,6 @@
 package com.mushrooms.mushroomservice.service.impl;
 
+import com.github.javafaker.Animal;
 import com.mushrooms.mushroomservice.dao.Mushroom;
 import com.mushrooms.mushroomservice.dto.MushroomReceiptDTO;
 import com.mushrooms.mushroomservice.dto.MushroomRequestDTO;
@@ -33,7 +34,7 @@ public class MushroomService implements IMushroomService {
 
 //    @Retry(name = "mushroom-api", fallbackMethod = "fallbackMushroomDTO")
     public MushroomReceiptDTO findByMushroomName(String mushroomName) {
-        Optional<Mushroom> optionalMushroom = mushroomRepository.findByMushroomName(mushroomName);
+        Optional<Mushroom> optionalMushroom = mushroomRepository.findByMushroomName(mushroomName.toLowerCase().trim());
 
         if(optionalMushroom.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MushroomName " + mushroomName + " not found!");
@@ -55,7 +56,7 @@ public class MushroomService implements IMushroomService {
     }
 
     public List<Mushroom> findByMushroomNameContaining(String mushroomName) {
-        List<Mushroom> optionalMushroom = mushroomRepository.findByMushroomNameContaining(mushroomName);
+        List<Mushroom> optionalMushroom = mushroomRepository.findByMushroomNameContaining(mushroomName.toLowerCase().trim());
 
         if(optionalMushroom.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MushroomName " + mushroomName + " not found!");
@@ -66,7 +67,7 @@ public class MushroomService implements IMushroomService {
 
 //    @Retry(name = "mushroom-api", fallbackMethod = "fallbackMushroomDTO")
     public MushroomReceiptDTO createMushroom(MushroomRequestDTO mushroomRequestDTO) {
-        Optional<Mushroom> optionalMushroom = mushroomRepository.findByMushroomName(mushroomRequestDTO.getMushroomName());
+        Optional<Mushroom> optionalMushroom = mushroomRepository.findByMushroomName(mushroomRequestDTO.getMushroomName().toLowerCase().trim());
 
         if(optionalMushroom.isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mushroomname " + mushroomRequestDTO.getMushroomName() + " already exist!");
@@ -82,16 +83,26 @@ public class MushroomService implements IMushroomService {
     }
 
 //    @Retry(name = "mushroom-api", fallbackMethod = "fallbackNull")
-    public void deleteMushroom(String mushroomName) {
-        Mushroom mushroom = mushroomRepository.findByMushroomName(mushroomName).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "MushroomName " + mushroomName + " not found!"));
+    public void deleteMushroom(Long id) {
+        Mushroom mushroom = mushroomRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mushroom id " + id + " not found!"));
         mushroomRepository.delete(mushroom);
     }
 
 //    @Retry(name = "mushroom-api", fallbackMethod = "fallbackMushroomDTO")
-    public MushroomReceiptDTO updateMushroom(String mushroomName, MushroomRequestDTO mushroomRequestDTO) {
-        Mushroom mushroom = mushroomRepository.findByMushroomName(mushroomName).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "MushroomName " + mushroomName + " not found!"));
+    public MushroomReceiptDTO updateMushroom(Long id, MushroomRequestDTO mushroomRequestDTO) {
+        Mushroom mushroom = mushroomRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mushroom id " + id + " not found!"));
+        if (mushroomRequestDTO.getMushroomName() != null && mushroomRequestDTO.getMushroomName().toLowerCase().trim() != "") {
+            if(!mushroomRequestDTO.getMushroomName().equals(mushroom.getMushroomName())){
+                Optional<Mushroom> optionalMushroom = mushroomRepository.findByMushroomName(mushroomRequestDTO.getMushroomName().toLowerCase().trim());
+
+                if(optionalMushroom.isPresent()){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mushroom name " + mushroomRequestDTO.getMushroomName() + " already exist!");
+                }
+            }
+            mushroom.setMushroomName(mushroomRequestDTO.getMushroomName().toLowerCase().trim());
+        }
         if (mushroomRequestDTO.getOtherNames() != null && mushroomRequestDTO.getOtherNames() != "") {
             mushroom.setOtherNames(mushroomRequestDTO.getOtherNames());
         }
@@ -177,7 +188,7 @@ public class MushroomService implements IMushroomService {
     private Mushroom convertDTOToMushroom(MushroomRequestDTO mushroomRequestDTO) {
         return new Mushroom(
                 mushroomRequestDTO.getPhotoURL(),
-                mushroomRequestDTO.getMushroomName(),
+                mushroomRequestDTO.getMushroomName().toLowerCase().trim(),
                 mushroomRequestDTO.getOtherNames(),
                 mushroomRequestDTO.getEdible(),
                 mushroomRequestDTO.getConsumable(),

@@ -90,6 +90,22 @@ class EventControllerTest {
     }
 
     @Test
+    void findByEventId() throws Exception {
+        MvcResult result = mockMvc.perform(
+                get("/api/events/id/"+event.getId())
+        ).andDo(print()).andExpect(status().isOk()).andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("grzybobranie"));
+    }
+
+    @Test
+    void findByEventId_NotFound() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/events/id/1000")
+        ).andDo(print()).andExpect(status().isBadRequest()).andReturn();
+
+    }
+
+
+    @Test
     void findByEventType() throws Exception {
         MvcResult result = mockMvc.perform(
                 get("/api/events/type/"+event.getEventType())
@@ -108,19 +124,43 @@ class EventControllerTest {
     }
 
     @Test
+    void createEvent_NameExist() throws Exception {
+        EventRequestDTO eventRequestDTO = new EventRequestDTO("grzybobranie", "OTHER", "2022-09-01 09:00", 80, "Warsaw", "Ula", "I invite you...");
+        String body = objectMapper.writeValueAsString(eventRequestDTO);
+        MvcResult result = mockMvc.perform(post("/api/events/new").content(body).contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print()).andExpect(status().isBadRequest()).andReturn();
+
+    }
+
+    @Test
     void updateEvent() throws Exception {
         EventRequestDTO eventRequestDTO = new EventRequestDTO("", "OTHER", "", 200, "Warsaw", "", "");
         String body = objectMapper.writeValueAsString(eventRequestDTO);
-        MvcResult result = mockMvc.perform(put("/api/events/update/" + event.getEventName()).content(body)
+        MvcResult result = mockMvc.perform(put("/api/events/update/" + event.getId()).content(body)
                 .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk()).andReturn();
         assertTrue(result.getResponse().getContentAsString().contains("Warsaw"));
     }
 
     @Test
+    void updateEvent_NotExist() throws Exception {
+        EventRequestDTO eventRequestDTO = new EventRequestDTO("", "OTHER", "", 200, "Warsaw", "", "");
+        String body = objectMapper.writeValueAsString(eventRequestDTO);
+        MvcResult result = mockMvc.perform(put("/api/events/update/100").content(body).contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print()).andExpect(status().isNotFound()).andReturn();
+
+    }
+
+    @Test
     void deleteEvent() throws Exception {
         long sizeBefore = eventRepository.count();
-        MvcResult result = mockMvc.perform(delete("/api/events/delete/"+ event.getEventName())).andExpect(status().isOk()).andReturn();
+        MvcResult result = mockMvc.perform(delete("/api/events/delete/"+ event.getId())).andExpect(status().isOk()).andReturn();
         long sizeAfter = eventRepository.count();
         assertEquals(--sizeBefore, sizeAfter);
+    }
+
+    @Test
+    void deleteEvent_NotExist() throws Exception {
+        MvcResult result = mockMvc.perform(delete("/api/events/delete/100")).andExpect(status().isNotFound()).andReturn();
+
     }
 }

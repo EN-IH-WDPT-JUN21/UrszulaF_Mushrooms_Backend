@@ -54,15 +54,15 @@ public class MushroomController {
         return mushroomService.createMushroom(mushroomRequestDTO);
     }
 
-    @PutMapping ("/update/{mushroomName}")
+    @PutMapping ("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MushroomReceiptDTO updateMushroom(@PathVariable String mushroomName, @RequestBody MushroomRequestDTO mushroomRequestDTO) {
-        return mushroomService.updateMushroom(mushroomName, mushroomRequestDTO);
+    public MushroomReceiptDTO updateMushroom(@PathVariable Long id, @RequestBody MushroomRequestDTO mushroomRequestDTO) {
+        return mushroomService.updateMushroom(id, mushroomRequestDTO);
     }
 
-    @DeleteMapping("/delete/{mushroomName}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteMushroom(@PathVariable String mushroomName) {
-        mushroomService.deleteMushroom(mushroomName);
+    public void deleteMushroom(@PathVariable Long id) {
+        mushroomService.deleteMushroom(id);
     }
 }

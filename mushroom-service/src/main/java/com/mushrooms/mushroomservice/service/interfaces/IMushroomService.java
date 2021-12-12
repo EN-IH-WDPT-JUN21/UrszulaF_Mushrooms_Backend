@@ -12,9 +12,9 @@ public interface IMushroomService {
     MushroomReceiptDTO findById(Long id);
     List<Mushroom> findByMushroomNameContaining(String mushroomName);
 
-    void deleteMushroom(String mushroomName);
+    void deleteMushroom(Long id);
 
     MushroomReceiptDTO createMushroom(MushroomRequestDTO mushroomRequestDTO);
 
-    MushroomReceiptDTO updateMushroom(String mushroomName, MushroomRequestDTO mushroomRequestDTO);
+    MushroomReceiptDTO updateMushroom(Long id, MushroomRequestDTO mushroomRequestDTO);
 }

@@ -9,11 +9,12 @@ import java.util.List;
 public interface IEventService {
     List<Event> getAllEvents();
     EventReceiptDTO findByEventName(String eventName);
+    EventReceiptDTO findById(Long id);
     List<Event> findByEventType(String eventTypeName);
 
-    void deleteEvent(String eventName);
+    void deleteEvent(Long id);
 
     EventReceiptDTO createEvent(EventRequestDTO eventRequestDTO);
 
-    EventReceiptDTO updateEvent(String eventName, EventRequestDTO eventRequestDTO);
+    EventReceiptDTO updateEvent(Long id, EventRequestDTO eventRequestDTO);
 }

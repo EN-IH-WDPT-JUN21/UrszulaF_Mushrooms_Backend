@@ -1,9 +1,6 @@
 package com.mushrooms.gatewayservice.service.impl;
 
-import com.mushrooms.gatewayservice.model.User;
-import com.mushrooms.gatewayservice.model.UserReceiptDTO;
-import com.mushrooms.gatewayservice.model.UserRequestDTO;
-import com.mushrooms.gatewayservice.model.UserServiceRequestDTO;
+import com.mushrooms.gatewayservice.model.*;
 import com.mushrooms.gatewayservice.proxy.UserProxy;
 import com.mushrooms.gatewayservice.repository.UserRepository;
 import com.mushrooms.gatewayservice.service.interfaces.IUserService;
@@ -98,6 +95,19 @@ public class UserService implements IUserService {
         User user= optionalUser.isPresent()? optionalUser.get() : null;
 
         return convertUserToDTO(user);
+    }
+
+    public UsernameDTO findUsername(String username) {
+        Optional<User> optionalUser = userRepository.findOptionalByUsername(username);
+
+        if(optionalUser.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username " + username + " not found!");
+        }
+
+        User user= optionalUser.isPresent()? optionalUser.get() : null;
+
+        UsernameDTO usernameDTO=new UsernameDTO(user.getUsername());
+        return usernameDTO;
     }
 
     public UserReceiptDTO findByUsernameWithAdds(String username) {

@@ -35,10 +35,22 @@ public class EventService implements IEventService {
 
     //    @Retry(name = "event-api", fallbackMethod = "fallbackEventDTO")
     public EventReceiptDTO findByEventName(String eventName) {
-        Optional<Event> optionalEvent = eventRepository.findByEventName(eventName);
+        Optional<Event> optionalEvent = eventRepository.findByEventName(eventName.toLowerCase().trim());
 
         if(optionalEvent.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "EventName " + eventName + " not found!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event name " + eventName + " not found!");
+        }
+
+        Event event= optionalEvent.isPresent()? optionalEvent.get() : null;
+        return convertEventToDTO(event);
+    }
+
+    //    @Retry(name = "event-api", fallbackMethod = "fallbackEventDTO")
+    public EventReceiptDTO findById(Long id) {
+        Optional<Event> optionalEvent = eventRepository.findById(id);
+
+        if(optionalEvent.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event with id " + id + " not found!");
         }
 
         Event event= optionalEvent.isPresent()? optionalEvent.get() : null;
@@ -58,10 +70,10 @@ public class EventService implements IEventService {
 
     //    @Retry(name = "event-api", fallbackMethod = "fallbackEventDTO")
     public EventReceiptDTO createEvent(EventRequestDTO eventRequestDTO) {
-        Optional<Event> optionalEvent = eventRepository.findByEventName(eventRequestDTO.getEventName());
+        Optional<Event> optionalEvent = eventRepository.findByEventName(eventRequestDTO.getEventName().toLowerCase().trim());
 
         if(optionalEvent.isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Eventname " + eventRequestDTO.getEventName() + " already exist!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event name " + eventRequestDTO.getEventName() + " already exist!");
         }
         try{
             Event event;
@@ -74,16 +86,26 @@ public class EventService implements IEventService {
     }
 
     //    @Retry(name = "event-api", fallbackMethod = "fallbackNull")
-    public void deleteEvent(String eventName) {
-        Event event = eventRepository.findByEventName(eventName).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "EventName " + eventName + " not found!"));
+    public void deleteEvent(Long id) {
+        Event event = eventRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event with id " + id + " not found!"));
         eventRepository.delete(event);
     }
 
     //    @Retry(name = "event-api", fallbackMethod = "fallbackEventDTO")
-    public EventReceiptDTO updateEvent(String eventName, EventRequestDTO eventRequestDTO) {
-        Event event = eventRepository.findByEventName(eventName).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "EventName " + eventName + " not found!"));
+    public EventReceiptDTO updateEvent(Long id, EventRequestDTO eventRequestDTO) {
+        Event event = eventRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event with id " + id + " not found!"));
+        if (eventRequestDTO.getEventName() != null && eventRequestDTO.getEventName() != "") {
+            if(!eventRequestDTO.getEventName().equals(event.getEventName())){
+                Optional<Event> optionalEvent = eventRepository.findByEventName(eventRequestDTO.getEventName().toLowerCase().trim());
+
+                if(optionalEvent.isPresent()){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event name " + eventRequestDTO.getEventName() + " already exist!");
+                }
+            }
+            event.setEventName(eventRequestDTO.getEventName());
+        }
         if (eventRequestDTO.getEventTypeName() != null && eventRequestDTO.getEventTypeName() != "") {
             event.setEventType(eventRequestDTO.getEventType());
         }
@@ -121,7 +143,7 @@ public class EventService implements IEventService {
 
     private Event convertDTOToEvent(EventRequestDTO eventRequestDTO) {
         return new Event(
-                eventRequestDTO.getEventName(),
+                eventRequestDTO.getEventName().toLowerCase().trim(),
                 eventRequestDTO.getEventType(),
                 eventRequestDTO.getWhenEvent(),
                 eventRequestDTO.getDuration(),

@@ -139,21 +139,49 @@ class MushroomControllerTest {
     }
 
     @Test
+    void createMushroom_NameExist() throws Exception {
+        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("Podgrzybek", "podgrzybeK ", "Podgrzybek", true, "GREAT", "lato", "forests in mountains",
+                "yellow, convex", "massive", "none", "yellow, folded", "none", "yellowish, compact and fibrous", "fruity",
+                "sweet", "sometimes orange", "grzyb2", "", "delicious");
+        String body = objectMapper.writeValueAsString(mushroomRequestDTO);
+        MvcResult result = mockMvc.perform(post("/api/mushrooms/new").content(body).contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print()).andExpect(status().isBadRequest()).andReturn();
+
+    }
+
+    @Test
     void updateMushroom() throws Exception{
         MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("", "", ", ", false, "POISONOUS", "zima", "",
                 "", "", "", "", "", "", "",
                 "", "", "", "", "");
         String body = objectMapper.writeValueAsString(mushroomRequestDTO);
-        MvcResult result = mockMvc.perform(put("/api/mushrooms/update/" + mushroom.getMushroomName()).content(body)
+        MvcResult result = mockMvc.perform(put("/api/mushrooms/update/" + mushroom.getId()).content(body)
                 .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk()).andReturn();
         assertTrue(result.getResponse().getContentAsString().contains("POISONOUS"));
     }
 
     @Test
+    void updateMushroom_NotExist() throws Exception {
+        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("", "", ", ", false, "POISONOUS", "zima", "",
+                "", "", "", "", "", "", "",
+                "", "", "", "", "");
+        String body = objectMapper.writeValueAsString(mushroomRequestDTO);
+        MvcResult result = mockMvc.perform(put("/api/mushrooms/update/100").content(body).contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print()).andExpect(status().isNotFound()).andReturn();
+
+    }
+
+    @Test
     void deleteMushroom() throws Exception {
         long sizeBefore = mushroomRepository.count();
-        MvcResult result = mockMvc.perform(delete("/api/mushrooms/delete/"+ mushroom.getMushroomName())).andExpect(status().isOk()).andReturn();
+        MvcResult result = mockMvc.perform(delete("/api/mushrooms/delete/"+ mushroom.getId())).andExpect(status().isOk()).andReturn();
         long sizeAfter = mushroomRepository.count();
         assertEquals(--sizeBefore, sizeAfter);
+    }
+
+    @Test
+    void deleteMushroom_NotExist() throws Exception {
+        MvcResult result = mockMvc.perform(delete("/api/mushrooms/delete/100")).andExpect(status().isNotFound()).andReturn();
+
     }
 }

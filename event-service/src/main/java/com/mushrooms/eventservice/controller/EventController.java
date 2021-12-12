@@ -36,6 +36,12 @@ public class EventController {
         return eventService.findByEventName(eventName);
     }
 
+    @GetMapping("/id/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EventReceiptDTO findEventById (@PathVariable(name="id") Long id){
+        return eventService.findById(id);
+    }
+
     @GetMapping("/type/{eventTypeName}")
     @ResponseStatus(HttpStatus.OK)
     public List<Event> findByEventType (@PathVariable(name="eventTypeName") String eventTypeName){
@@ -48,15 +54,15 @@ public class EventController {
         return eventService.createEvent(eventRequestDTO);
     }
 
-    @PutMapping ("/update/{eventName}")
+    @PutMapping ("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EventReceiptDTO updateEvent(@PathVariable String eventName, @RequestBody EventRequestDTO eventRequestDTO) {
-        return eventService.updateEvent(eventName, eventRequestDTO);
+    public EventReceiptDTO updateEvent(@PathVariable Long id, @RequestBody EventRequestDTO eventRequestDTO) {
+        return eventService.updateEvent(id, eventRequestDTO);
     }
 
-    @DeleteMapping("/delete/{eventName}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEvent(@PathVariable String eventName) {
-        eventService.deleteEvent(eventName);
+    public void deleteEvent(@PathVariable Long id) {
+        eventService.deleteEvent(id);
     }
 }

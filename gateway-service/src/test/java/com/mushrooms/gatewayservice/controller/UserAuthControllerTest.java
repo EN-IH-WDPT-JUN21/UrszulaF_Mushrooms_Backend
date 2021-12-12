@@ -108,6 +108,21 @@ class UserAuthControllerTest {
     }
 
     @Test
+    void findUsername() throws Exception {
+        MvcResult result = mockMvc.perform(
+                get("/api/users-auth/name/"+user.getUsername())
+        ).andDo(print()).andExpect(status().isOk()).andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("Jola"));
+    }
+
+    @Test
+    void findUsername_NotFound() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/users-auth/name/Krzysztof")
+        ).andDo(print()).andExpect(status().isBadRequest()).andReturn();
+
+    }
+
+    @Test
     void createUserNoAdds() throws Exception {
         UserRequestDTO userRequestDTO = new UserRequestDTO("Halina", "h@h.pl", "halina", "USER", "", "");
         String body = objectMapper.writeValueAsString(userRequestDTO);
