@@ -1,9 +1,6 @@
 package com.mushrooms.gatewayservice.service.interfaces;
 
-import com.mushrooms.gatewayservice.model.User;
-import com.mushrooms.gatewayservice.model.UserReceiptDTO;
-import com.mushrooms.gatewayservice.model.UserRequestDTO;
-import com.mushrooms.gatewayservice.model.UsernameDTO;
+import com.mushrooms.gatewayservice.model.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ public interface IUserService {
     UserReceiptDTO findByUsername(String username);
     UserReceiptDTO findByUsernameWithAdds(String username);
     UsernameDTO findUsername(String username);
+    RoleDTO findRole(String username);
     UserReceiptDTO createUser(UserRequestDTO userRequestDTO);
     UserReceiptDTO createUserWithAdds(UserRequestDTO userRequestDTO);
     void deleteUser(String username);

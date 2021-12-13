@@ -1,9 +1,6 @@
 package com.mushrooms.gatewayservice.controller;
 
-import com.mushrooms.gatewayservice.model.User;
-import com.mushrooms.gatewayservice.model.UserReceiptDTO;
-import com.mushrooms.gatewayservice.model.UserRequestDTO;
-import com.mushrooms.gatewayservice.model.UsernameDTO;
+import com.mushrooms.gatewayservice.model.*;
 import com.mushrooms.gatewayservice.repository.UserRepository;
 import com.mushrooms.gatewayservice.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +43,12 @@ public class UserAuthController {
     @ResponseStatus(HttpStatus.OK)
     public UsernameDTO findUsername (@PathVariable(name="username") String username){
         return userService.findUsername(username);
+    }
+
+    @GetMapping("role/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public RoleDTO findRole (@PathVariable(name="username") String username){
+        return userService.findRole(username);
     }
 
     @PostMapping("/new")

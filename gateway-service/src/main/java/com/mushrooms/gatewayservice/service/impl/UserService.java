@@ -110,6 +110,19 @@ public class UserService implements IUserService {
         return usernameDTO;
     }
 
+    public RoleDTO findRole(String username) {
+        Optional<User> optionalUser = userRepository.findOptionalByUsername(username);
+
+        if(optionalUser.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username " + username + " not found!");
+        }
+
+        User user= optionalUser.isPresent()? optionalUser.get() : null;
+
+        RoleDTO roleDTO=new RoleDTO(user.getRole());
+        return roleDTO;
+    }
+
     public UserReceiptDTO findByUsernameWithAdds(String username) {
         Optional<User> optionalUser = userRepository.findOptionalByUsername(username);
 
