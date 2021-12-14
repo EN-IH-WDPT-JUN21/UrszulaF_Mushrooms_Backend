@@ -147,6 +147,16 @@ public class UserService implements IUserService {
 
     }
 
+    public List<User> findByUsernameContaining(String username) {
+        List<User> optionalUser = userRepository.findByUsernameContaining(username.toLowerCase().trim());
+
+        if(optionalUser.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username " + username + " not found!");
+        }
+
+        return optionalUser;
+    }
+
 
     //    @Retry(name = "user-api", fallbackMethod = "fallbackUserDTO")
     public UserReceiptDTO createUser(UserRequestDTO userRequestDTO) {

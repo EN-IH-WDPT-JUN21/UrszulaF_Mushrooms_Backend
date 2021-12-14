@@ -51,6 +51,12 @@ public class UserAuthController {
         return userService.findRole(username);
     }
 
+    @GetMapping("/containing/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> findByUserNameContaining (@PathVariable(name="username") String username){
+        return userService.findByUsernameContaining(username);
+    }
+
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public UserReceiptDTO createUser(@RequestBody @Valid UserRequestDTO userRequestDTO){

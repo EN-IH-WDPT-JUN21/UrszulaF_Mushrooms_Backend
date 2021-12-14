@@ -10,6 +10,7 @@ public interface IUserService {
     UserReceiptDTO findByUsername(String username);
     UserReceiptDTO findByUsernameWithAdds(String username);
     UsernameDTO findUsername(String username);
+    List<User> findByUsernameContaining(String username);
     RoleDTO findRole(String username);
     UserReceiptDTO createUser(UserRequestDTO userRequestDTO);
     UserReceiptDTO createUserWithAdds(UserRequestDTO userRequestDTO);

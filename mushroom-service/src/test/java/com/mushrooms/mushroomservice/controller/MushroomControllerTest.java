@@ -129,7 +129,7 @@ class MushroomControllerTest {
 
     @Test
     void createMushroom() throws Exception {
-        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("surojadka", "surojadka", "surojadka", true, "GREAT", "zima", "forests in mountains",
+        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("surojadka", "surojadka", "surojadka", "true", "GREAT", "zima", "forests in mountains",
                 "yellow, convex", "massive", "none", "yellow, folded", "none", "yellowish, compact and fibrous", "fruity",
                 "sweet", "sometimes orange", "grzyb2", "", "delicious");
         String body = objectMapper.writeValueAsString(mushroomRequestDTO);
@@ -140,7 +140,7 @@ class MushroomControllerTest {
 
     @Test
     void createMushroom_NameExist() throws Exception {
-        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("Podgrzybek", "podgrzybeK ", "Podgrzybek", true, "GREAT", "lato", "forests in mountains",
+        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("Podgrzybek", "podgrzybeK ", "Podgrzybek", "true", "GREAT", "lato", "forests in mountains",
                 "yellow, convex", "massive", "none", "yellow, folded", "none", "yellowish, compact and fibrous", "fruity",
                 "sweet", "sometimes orange", "grzyb2", "", "delicious");
         String body = objectMapper.writeValueAsString(mushroomRequestDTO);
@@ -151,7 +151,7 @@ class MushroomControllerTest {
 
     @Test
     void updateMushroom() throws Exception{
-        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("", "", ", ", false, "POISONOUS", "zima", "",
+        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("", "", ", ", "false", "POISONOUS", "zima", "",
                 "", "", "", "", "", "", "",
                 "", "", "", "", "");
         String body = objectMapper.writeValueAsString(mushroomRequestDTO);
@@ -162,7 +162,7 @@ class MushroomControllerTest {
 
     @Test
     void updateMushroom_NotExist() throws Exception {
-        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("", "", ", ", false, "POISONOUS", "zima", "",
+        MushroomRequestDTO mushroomRequestDTO = new MushroomRequestDTO("", "", ", ", "false", "POISONOUS", "zima", "",
                 "", "", "", "", "", "", "",
                 "", "", "", "", "");
         String body = objectMapper.writeValueAsString(mushroomRequestDTO);

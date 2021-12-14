@@ -15,7 +15,18 @@ public class MushroomRequestDTO {
     private String photoURL;
     private String mushroomName;
     private String otherNames;
-    private Boolean edible;
+
+    private String edibleString;
+
+    public Boolean getEdible() {
+        return Boolean.parseBoolean(edibleString);
+    }
+
+    public void setEdible(Boolean consumable) {
+        this.edibleString = String.valueOf(consumable);
+    }
+
+//    private Boolean edible;
 
     private String consumableName;
 

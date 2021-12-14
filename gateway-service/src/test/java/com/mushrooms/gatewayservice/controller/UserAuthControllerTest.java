@@ -123,6 +123,36 @@ class UserAuthControllerTest {
     }
 
     @Test
+    void findRole() throws Exception {
+        MvcResult result = mockMvc.perform(
+                get("/api/users-auth/role/"+user.getUsername())
+        ).andDo(print()).andExpect(status().isOk()).andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("ADMIN"));
+    }
+
+    @Test
+    void findRole_NotFound() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/users-auth/role/Krzysztof")
+        ).andDo(print()).andExpect(status().isBadRequest()).andReturn();
+
+    }
+
+    @Test
+    void findByUsernameContaining() throws Exception {
+        MvcResult result = mockMvc.perform(
+                get("/api/users-auth/containing/OLa")
+        ).andDo(print()).andExpect(status().isOk()).andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("Jola"));
+    }
+
+    @Test
+    void findByUsernameContaining_NotFound() throws Exception {
+        MvcResult result = mockMvc.perform(
+                get("/api/users-auth/containing/Krzysz")
+        ).andDo(print()).andExpect(status().isBadRequest()).andReturn();
+    }
+
+    @Test
     void createUserNoAdds() throws Exception {
         UserRequestDTO userRequestDTO = new UserRequestDTO("Halina", "h@h.pl", "halina", "USER", "", "");
         String body = objectMapper.writeValueAsString(userRequestDTO);
