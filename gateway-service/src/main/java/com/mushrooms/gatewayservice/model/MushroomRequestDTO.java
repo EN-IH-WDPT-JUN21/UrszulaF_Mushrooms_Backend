@@ -1,6 +1,6 @@
-package com.mushrooms.mushroomservice.dto;
+package com.mushrooms.gatewayservice.model;
 
-import com.mushrooms.mushroomservice.enums.Consumable;
+import com.mushrooms.gatewayservice.enums.Consumable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

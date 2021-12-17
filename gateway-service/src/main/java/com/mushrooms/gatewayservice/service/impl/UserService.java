@@ -28,32 +28,6 @@ public class UserService implements IUserService {
     @Autowired
     UserProxy userProxy;
 
-//    public static final String TARGET_SERVICE = "user-service";
-//    private WebClient client;
-//    //    private final WebClient client = WebClient.create("http://localhost:8080");
-//    final DiscoveryClient discoveryClient;
-//
-//    public UserService(DiscoveryClient discoveryClient) {
-//        this.discoveryClient = discoveryClient;
-//        createClient();
-//    }
-//
-//    private void createClient() {
-//        var serviceInstanceList = discoveryClient.getInstances(TARGET_SERVICE);
-//        String clientURI = serviceInstanceList.get(0).getUri().toString();
-//        client = WebClient.create(clientURI);
-//    }
-
-//    public UserReceiptDTO findByUsername(String username) {
-//        return client.get()
-//                .uri("/api/users/" + username)
-//                .retrieve()
-//                .bodyToMono(UserReceiptDTO.class)
-//                .block();
-
-//    }
-
-
 
     Logger logger = LoggerFactory.getLogger("UserService.class");
 

@@ -32,14 +32,5 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new CustomUserDetails(user);
         }
 
-
-        //user database `
-
-//        if (userName.equals("Ironhacker")) {
-//            return new User("Ironhacker", "Ironhacker123", new ArrayList<>());
-//        } else {
-//            throw new UsernameNotFoundException("User not found !!");
-//        }
-
     }
 }

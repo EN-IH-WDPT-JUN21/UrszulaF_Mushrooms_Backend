@@ -75,7 +75,7 @@ class JwtControllerTest {
         String body = objectMapper.writeValueAsString(jwtRequest);
         MvcResult result = mockMvc.perform(post("/token").content(body)
                 .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk()).andReturn();
-//        assertTrue(result.getResponse().getContentAsString().contains("Halina"));
+
     }
 
 }

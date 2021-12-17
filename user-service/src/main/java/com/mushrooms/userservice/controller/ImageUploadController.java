@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,11 +27,15 @@ public class ImageUploadController {
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.CREATED)
     public ImageModel uploadImage(@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        Optional<ImageModel> optionalImage = imageRepository.findByName(imageFile.getOriginalFilename());
+
+        if(optionalImage.isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image name " + imageFile.getOriginalFilename() + " already exist!");
+        }
         System.out.println("Original Image Byte Size - " + imageFile.getBytes().length);
         ImageModel img = new ImageModel(imageFile.getOriginalFilename(), imageFile.getContentType(),
                 compressBytes(imageFile.getBytes()));
         return imageRepository.save(img);
-//        return ResponseEntity.status(HttpStatus.CREATED);
     }
     @GetMapping(path = { "/get/{imageName}" })
     public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
